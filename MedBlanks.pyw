@@ -86,8 +86,11 @@ class MedBlanksSettings(QDialog):
 
         self.checks_dict = dict()
         self.append_cab_to_layout([u"Рабочий кабинет"])
+        already_added = set()
         for blank_column, blank_lst_item in blanks_lst:
-            self.append_cab_to_layout(blank_lst_item)
+            if blank_lst_item[0] not in already_added:
+                self.append_cab_to_layout(blank_lst_item)
+                already_added.add(blank_lst_item[0])
         self.load_settings()
 
         self.connect(change_path_button, SIGNAL("clicked()"), self.change_path)
